@@ -1,14 +1,14 @@
-# Contributing to claude-red
+# Contributing to pi-red
 
 Thanks for contributing. This guide explains the skill format, the review process, and the conventions to keep the library coherent as it grows.
 
 ## Quick Rules
 
 1. **One skill, one surface.** Prefer focused skills (`offensive-kerberoasting`) over monolithic overviews (`offensive-active-directory`).
-2. **YAML frontmatter is required.** Skills without it won't load via the Claude Skills system.
+2. **YAML frontmatter is required.** Skills without it won't load in pi.
 3. **Cite sources.** Every technique should be attributable. Link CVEs, advisories, original research.
 4. **No unauthorized targeting.** Don't include hardcoded victim domains, real customer data, or credentials.
-5. **Use code blocks with language tags.** It's how Claude (and humans) parse them best.
+5. **Use code blocks with language tags.** It's how pi (and humans) parse them best.
 
 ---
 
@@ -17,7 +17,7 @@ Thanks for contributing. This guide explains the skill format, the review proces
 A skill lives at:
 
 ```
-Skills/<category>/<skill-folder>/SKILL.md
+plugins/<category>/skills/<skill-folder>/SKILL.md
 ```
 
 The folder name **must** match the `name:` field in the frontmatter.
@@ -27,11 +27,11 @@ The folder name **must** match the `name:` field in the frontmatter.
 ```yaml
 ---
 name: offensive-<bug-class-or-domain>
-description: "One paragraph (50–500 words). State the surface, the techniques covered, and when to use this skill. Claude uses this for trigger matching — be specific about scenarios, tools, and sub-topics."
+description: "One paragraph (50–500 words). State the surface, the techniques covered, and when to use this skill. pi uses this for trigger matching — be specific about scenarios, tools, and sub-topics."
 ---
 ```
 
-The `description` is what Claude matches against. Make it dense with relevant terms an operator would mention. Avoid marketing language.
+The `description` is what pi matches against. Make it dense with relevant terms an operator would mention. Avoid marketing language.
 
 ### Body Structure (recommended)
 
@@ -85,15 +85,11 @@ The `description` is what Claude matches against. Make it dense with relevant te
 ## Adding a New Skill
 
 1. Pick the right category folder. If none fits, propose a new one in your PR description.
-2. Create `Skills/<category>/<skill-name>/SKILL.md`.
+2. Create `plugins/<category>/skills/<skill-name>/SKILL.md`.
 3. Write the frontmatter and body following the structure above.
 4. Update [`README.md`](README.md) — add the skill to the relevant category table.
 5. Update [`CHANGELOG.md`](CHANGELOG.md) under the next version.
-6. Update [`claude-skills.json`](claude-skills.json) if it exists (run `python tools/build_manifest.py` if available).
-7. Run any local lint:
-   ```bash
-   ./tools/check-skill.sh Skills/<category>/<skill-name>/SKILL.md
-   ```
+6. If you added a **new category**, register it as a plugin entry in [`.omp-plugin/marketplace.json`](.omp-plugin/marketplace.json) (new skills in existing categories need no catalog change).
 
 ## Modifying an Existing Skill
 
@@ -107,7 +103,7 @@ When a skill grows beyond one surface (e.g. `offensive-wifi` covering WPA2, WPA3
 
 1. Keep the original as a brief overview that points to the new focused skills
 2. Move detailed content into new per-surface skills
-3. Update README, CHANGELOG, and the manifest
+3. Update README and CHANGELOG
 
 The roadmap in README tracks current splits.
 
