@@ -1,0 +1,19 @@
+{
+  "name": "pi-red",
+  "version": "1.0.0",
+  "description": "Offensive security skill library for omp — 79 red-team SKILL.md playbooks across 23 categories (web, AD, cloud, container, wireless, exploit-dev, fuzzing, crypto, forensics, OSINT, …).",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "omp",
+    "plugin",
+    "redteam",
+    "offensive",
+    "pentest",
+    "skills",
+    "bugbounty"
+  ],
+  "omp": {
+    "skills": ["./skills"]
+  }
+}
